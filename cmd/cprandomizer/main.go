@@ -2,6 +2,7 @@ package main
 
 import (
 	"cprandomizer/internal/authentication"
+	"cprandomizer/internal/consoleinteractions"
 	"flag"
 	"fmt"
 	"os"
@@ -17,7 +18,9 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(1)
 	} else {
-		/*client :=*/ authentication.Authenticate(clientID, secretKey)
-		// WIP
+		client := authentication.Authenticate(clientID, secretKey)
+		/*chosenPlaylist :=*/ consoleinteractions.ChoosePlaylist(client)
+		//WIP
+
 	}
 }
