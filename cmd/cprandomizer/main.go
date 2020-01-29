@@ -5,6 +5,7 @@ import (
 	"cprandomizer/internal/consoleinteractions"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -18,9 +19,15 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(1)
 	} else {
-		client := authentication.Authenticate(clientID, secretKey)
-		/*chosenPlaylist :=*/ consoleinteractions.ChoosePlaylist(client)
-		//WIP
+		client, err := authentication.Authenticate(clientID, secretKey)
+		if err == nil {
+			_, err = consoleinteractions.ChoosePlaylist(client)
+			// chosenPlaylist, err := consoleinteractions.ChoosePlaylist(client)
+			//WIP
+		}
 
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }

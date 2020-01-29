@@ -25,7 +25,7 @@ var (
 //       - Use "http://localhost:8080/callback" as the redirect URI
 //  2. Set the clientID  to the client ID you got in step 1.
 //  3. Set the secretKey to the client secret from step 1.
-func Authenticate(clientID, secretKey string) *spotify.Client {
+func Authenticate(clientID, secretKey string) (client *spotify.Client, err error) {
 	auth.SetAuthInfo(clientID, secretKey)
 	// first start an HTTP server
 	http.HandleFunc("/callback", completeAuth)
@@ -35,15 +35,15 @@ func Authenticate(clientID, secretKey string) *spotify.Client {
 	fmt.Println("Please log in to Spotify by visiting the following page in your browser:", url)
 
 	// wait for auth to complete
-	client := <-ch
+	client = <-ch
 
 	// use the client to make calls that require authorization
-	user, err := client.CurrentUser()
-	if err != nil {
-		log.Fatal(err)
+	var user *spotify.PrivateUser
+	user, err = client.CurrentUser()
+	if err == nil {
+		fmt.Print(fmt.Sprintf("You are logged in as %s (ID = %s) !\n\n", user.DisplayName, user.ID))
 	}
-	fmt.Print(fmt.Sprintf("You are logged in as: %s\n\n", user.ID))
-	return client
+	return
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {
