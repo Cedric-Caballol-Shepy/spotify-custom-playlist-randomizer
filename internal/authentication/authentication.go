@@ -29,9 +29,6 @@ func Authenticate(clientID, secretKey string) *spotify.Client {
 	auth.SetAuthInfo(clientID, secretKey)
 	// first start an HTTP server
 	http.HandleFunc("/callback", completeAuth)
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Got request for:", r.URL.String())
-	})
 	go http.ListenAndServe(":8080", nil)
 
 	url := auth.AuthURL(state)
