@@ -14,13 +14,13 @@ func ChoosePlaylist(client *spotify.Client) (chosenPlaylist spotify.SimplePlayli
 		var i int
 		fmt.Println("Choose the playlist you want to randomize...")
 		for i, playlist = range playlists {
-			fmt.Println(fmt.Sprintf("%d - %s (%d songs)", i+1, playlist.Name, playlist.Tracks.Total))
+			fmt.Printf("%d - %s (%d songs)\n", i+1, playlist.Name, playlist.Tracks.Total)
 		}
 		fmt.Print("Type the number corresponding to the playlist : ")
 		_, err = fmt.Scan(&i)
 		if err == nil {
 			chosenPlaylist = playlists[i-1]
-			fmt.Println(fmt.Sprintf("You chose %s (%d) !", chosenPlaylist.Name, i))
+			fmt.Printf("You chose %s (%d) !\n", chosenPlaylist.Name, i)
 		}
 	}
 	return

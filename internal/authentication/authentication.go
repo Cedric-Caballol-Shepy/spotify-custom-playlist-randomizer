@@ -41,7 +41,7 @@ func Authenticate(clientID, secretKey string) (client *spotify.Client, err error
 	var user *spotify.PrivateUser
 	user, err = client.CurrentUser()
 	if err == nil {
-		fmt.Print(fmt.Sprintf("You are logged in as %s (ID = %s) !\n\n", user.DisplayName, user.ID))
+		fmt.Printf("You are logged in as %s (ID = %s) !\n\n", user.DisplayName, user.ID)
 	}
 	return
 }
