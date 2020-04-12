@@ -20,7 +20,7 @@ func ChoosePlaylist(client *spotify.Client) (chosenPlaylist spotify.SimplePlayli
 		_, err = fmt.Scan(&i)
 		if err == nil {
 			chosenPlaylist = playlists[i-1]
-			fmt.Printf("You chose %s (%d) !\n", chosenPlaylist.Name, i)
+			fmt.Printf("You chose %d - %s !\n", i, chosenPlaylist.Name)
 		}
 	}
 	return

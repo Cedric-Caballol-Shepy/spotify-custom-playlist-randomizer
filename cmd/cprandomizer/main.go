@@ -3,6 +3,7 @@ package main
 import (
 	"cprandomizer/internal/authentication"
 	"cprandomizer/internal/consoleinteractions"
+	"cprandomizer/internal/playlist"
 	"flag"
 	"fmt"
 	"log"
@@ -20,12 +21,16 @@ func main() {
 		os.Exit(1)
 	} else {
 		client, err := authentication.Authenticate(clientID, secretKey)
-		if err == nil {
-			_, err = consoleinteractions.ChoosePlaylist(client)
-			// chosenPlaylist, err := consoleinteractions.ChoosePlaylist(client)
-			//WIP
+		if err != nil {
+			log.Fatal(err)
 		}
 
+		chosenPlaylist, err := consoleinteractions.ChoosePlaylist(client)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = playlist.ShuffleRandom(client, chosenPlaylist)
 		if err != nil {
 			log.Fatal(err)
 		}
