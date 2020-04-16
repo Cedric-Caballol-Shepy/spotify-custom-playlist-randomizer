@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	fmt.Println("This is a work in progress, be careful and review the code before using it on your playlists !")
 	var clientID, secretKey string
 	flag.StringVar(&clientID, "client-id", "", "Your Spotify client ID")
 	flag.StringVar(&secretKey, "secret-key", "", "Your Spotify client secret")

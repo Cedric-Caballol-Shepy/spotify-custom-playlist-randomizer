@@ -23,8 +23,6 @@ func ShuffleRandom(client *spotify.Client, playlist spotify.SimplePlaylist) (err
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(trackIds), func(i, j int) { trackIds[i], trackIds[j] = trackIds[j], trackIds[i] })
 
-	fmt.Println("len trackIds: ", len(trackIds))
-
 	maxPerRequest := 100 // Spotify's API can't take more than 100 tracks by call
 	if len(trackIds) < maxPerRequest {
 		err = client.ReplacePlaylistTracks(playlist.ID, trackIds...)
