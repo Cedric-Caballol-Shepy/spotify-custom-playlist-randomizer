@@ -31,6 +31,27 @@ func replaceAllPlaylistTracks(client *spotify.Client, playlist spotify.SimplePla
 	return
 }
 
+// getAllTracks returns a list of all the tracks from a playlist
+func getAllTracks(client *spotify.Client, playlist spotify.SimplePlaylist) (tracks []spotify.FullTrack, err error) {
+	trackPage, err := client.GetPlaylistTracks(playlist.ID)
+	if err == nil {
+		for page := 1; ; page++ {
+			for _, playlistTrack := range trackPage.Tracks {
+				tracks = append(tracks, playlistTrack.Track)
+			}
+			err = client.NextPage(trackPage)
+			if err == spotify.ErrNoMorePages {
+				err = nil
+				break
+			}
+			if err != nil {
+				return
+			}
+		}
+	}
+	return
+}
+
 // getAllTrackIds returns a list of all the track ids from a playlist
 func getAllTrackIds(client *spotify.Client, playlist spotify.SimplePlaylist) (trackIds []spotify.ID, err error) {
 	trackPage, err := client.GetPlaylistTracks(playlist.ID)
