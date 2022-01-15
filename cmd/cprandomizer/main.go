@@ -31,7 +31,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		err = playlist.ShuffleRandom(client, chosenPlaylist)
+		err = playlist.ShuffleWithRules(client, chosenPlaylist, 2) // TODO: user-given parameter instead of 2
 		if err != nil {
 			log.Fatal(err)
 		}
